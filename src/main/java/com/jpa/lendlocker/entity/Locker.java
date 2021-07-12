@@ -7,17 +7,15 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@IdClass(LockerId.class)
 public class Locker {
 
-    @Id
+    @MapsId("areaId")
     @ManyToOne
     @JoinColumn(name = "area_id")
     private LockerArea area;
 
-    @Id
-    @Column(name = "locker_no")
-    private Long lockerNo;
+    @EmbeddedId
+    private LockerId lockerNo;
 
     @Column(name = "locker_type")
     private LockerType type;

@@ -13,7 +13,7 @@ import java.util.List;
 public class User {
 
     @Id @Column(name = "user_id")
-    private Long id;
+    private String id;
 
     @Column(name = "user_name")
     private String name;
@@ -21,6 +21,10 @@ public class User {
     @Column(name = "user_mobile")
     private String mobile;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<Lend> lends = new ArrayList<>();
+
+
+
+
 }

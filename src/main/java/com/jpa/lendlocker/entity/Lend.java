@@ -22,6 +22,7 @@ public class Lend {
     @Column(name = "lend_id")
     private Long id;
 
+    // 연관관계 주인
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -44,6 +45,12 @@ public class Lend {
 
     @Column(name = "lend_date")
     private LocalDateTime lendDate;
+
+    // 연관관계 편의 메소드
+    public void setUser(User user){
+        this.user = user;
+        user.getLends().add(this);
+    }
 
 
 }
