@@ -1,11 +1,15 @@
 package com.jpa.lendlocker.entity;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+
 @Embeddable
+@Getter
 public class LockerId implements Serializable {
 
     private Long areaId;

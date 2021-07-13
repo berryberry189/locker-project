@@ -1,6 +1,7 @@
 package com.jpa.lendlocker.controller;
 
 import com.jpa.lendlocker.dto.UserRequestDto;
+import com.jpa.lendlocker.dto.UserResponseDto;
 import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,11 @@ public class UserController {
      * 목록
      */
     @GetMapping("/")
-    public List<UserRequestDto> list(){
+    public List<UserResponseDto> list(){
 
         List<User> users = userService.findAll();
-        List<UserRequestDto> result = users.stream()
-                .map(UserRequestDto::new).collect(Collectors.toList());
+        List<UserResponseDto> result = users.stream()
+                .map(UserResponseDto::new).collect(Collectors.toList());
 
         return result;
     }
@@ -46,7 +47,7 @@ public class UserController {
      * 수정
      */
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id,
+    public ResponseEntity update(@PathVariable Long id,
                                  @RequestBody @Valid UserRequestDto dto){
 
         return new ResponseEntity(userService.update(id, dto), HttpStatus.OK);

@@ -1,12 +1,15 @@
 package com.jpa.lendlocker.entity;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
 public class Locker {
 
     @MapsId("areaId")
@@ -14,8 +17,8 @@ public class Locker {
     @JoinColumn(name = "area_id")
     private LockerArea area;
 
-    @EmbeddedId
-    private LockerId lockerNo;
+    @EmbeddedId // 복합키일 경우 @GeneratedValue 기본키 생성 불가능
+    private LockerId lockerId;
 
     @Column(name = "locker_type")
     @Enumerated(EnumType.STRING)
@@ -25,4 +28,18 @@ public class Locker {
     private int price;
 
     private String useYn;
+
+    @Builder
+    public Locker(LockerArea area, LockerId lockerId, LockerType type, int price, String useYn){
+        this.lockerId = lockerId;
+        this.type = type;
+        this.price = price;
+        this.useYn = useYn;
+
+        if(area != null) changeLockerArea(area);
+    }
+
+    public void changeLockerArea(LockerArea area){
+        this.area = area;
+    }
 }

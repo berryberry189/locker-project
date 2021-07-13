@@ -19,4 +19,5 @@ public class LockerArea {
     // 지역명
     @Column(name = "area_name")
     private String name;
+
 }
