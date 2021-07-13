@@ -1,9 +1,11 @@
 package com.jpa.lendlocker.controller;
 
-import com.jpa.lendlocker.dto.UserDto;
+import com.jpa.lendlocker.dto.UserRequestDto;
 import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,35 +23,48 @@ public class UserController {
      * 목록
      */
     @GetMapping("/")
-    public List<UserDto> list(){
+    public List<UserRequestDto> list(){
 
         List<User> users = userService.findAll();
-        List<UserDto> result = users.stream()
-                .map(UserDto::new).collect(Collectors.toList());
+        List<UserRequestDto> result = users.stream()
+                .map(UserRequestDto::new).collect(Collectors.toList());
 
         return result;
     }
 
     /**
      * 등록
+     * @return
      */
     @PostMapping("/")
-    public String join(@RequestBody @Valid UserDto dto){
+    public ResponseEntity join(@RequestBody @Valid UserRequestDto dto){
 
-        return userService.join(dto);
+        return new ResponseEntity(userService.join(dto), HttpStatus.CREATED);
     }
 
     /**
-     * 등록
+     * 수정
      */
     @PutMapping("/{id}")
-    public String update(@PathVariable("id") String id,
-                         @RequestBody @Valid UserDto dto){
+    public ResponseEntity update(@PathVariable("id") Long id,
+                                 @RequestBody @Valid UserRequestDto dto){
 
-        return userService.update(id, dto);
+        return new ResponseEntity(userService.update(id, dto), HttpStatus.OK);
     }
 
+    /**
+     * 상세
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity datail(@PathVariable Long id){
+        return new ResponseEntity(userService.datail(id), HttpStatus.OK);
+    }
 
-
-
+    /**
+     * 삭제
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        return new ResponseEntity(userService.deleteById(id), HttpStatus.OK);
+    }
 }
