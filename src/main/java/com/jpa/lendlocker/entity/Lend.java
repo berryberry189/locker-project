@@ -24,7 +24,7 @@ public class Lend {
 
     // 연관관계 주인
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_key")
     private User user;
 
     @OneToOne(fetch = LAZY)
