@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface LockerRepository extends JpaRepository<Locker, LockerId> {
     List<Locker> findByAreaId(Long areaId);
+
+    Locker findByLockerId(LockerId lockerId);
 }

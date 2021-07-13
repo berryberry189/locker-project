@@ -1,6 +1,8 @@
 package com.jpa.lendlocker.service;
 
+import com.jpa.lendlocker.dto.LockerRequestDto;
 import com.jpa.lendlocker.entity.Locker;
+import com.jpa.lendlocker.entity.LockerId;
 import com.jpa.lendlocker.repository.LockerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,5 +20,19 @@ public class LockerService {
 
     public List<Locker> findByAreaId(Long areaId) {
         return lockerRepository.findByAreaId(areaId);
+    }
+
+    /**
+     * 보관함 신규 등록
+     * @param lockerRequestDto
+     * @return
+     */
+    @Transactional
+    public Long create(LockerRequestDto lockerRequestDto) {
+        Locker locker = lockerRepository.findByLockerId(
+                new LockerId(lockerRequestDto.getAreaId(), lockerRequestDto.getLockerNo()));
+        if(locker != null)  throw new IllegalArgumentException("이미 있는 보관함 번호 입니다.");
+        lockerRequestDto.setUseYn("N");
+        return lockerRepository.save(lockerRequestDto.toEntity()).getLockerId().getLockerNo();
     }
 }
