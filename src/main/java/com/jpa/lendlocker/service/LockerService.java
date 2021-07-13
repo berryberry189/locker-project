@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,8 +31,8 @@ public class LockerService {
      */
     @Transactional
     public Long create(LockerRequestDto lockerRequestDto) {
-        Locker locker = lockerRepository.findByLockerId(
-                new LockerId(lockerRequestDto.getAreaId(), lockerRequestDto.getLockerNo()));
+        LockerId lockerId = new LockerId(lockerRequestDto.getAreaId(), lockerRequestDto.getLockerNo());
+        Optional<Locker> locker = lockerRepository.findById(lockerId);
         if(locker != null)  throw new IllegalArgumentException("이미 있는 보관함 번호 입니다.");
         lockerRequestDto.setUseYn("N");
         return lockerRepository.save(lockerRequestDto.toEntity()).getLockerId().getLockerNo();
@@ -44,8 +45,9 @@ public class LockerService {
      */
     @Transactional
     public Long update(Long areaId, Long lockerNo, LockerRequestDto lockerRequestDto) {
-        Locker locker = lockerRepository.findByLockerId(new LockerId(areaId, lockerNo));
-        if(locker == null)  throw new IllegalArgumentException("존재하지 않는 보관함 번호 입니다.");
+        LockerId lockerId = new LockerId(areaId, lockerNo);
+        Locker locker = lockerRepository.findById(lockerId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 번호 입니다."));
 
         if(lockerRequestDto != null){
             lockerRepository.save(locker.update(lockerRequestDto));
@@ -53,4 +55,18 @@ public class LockerService {
 
         return locker.getLockerId().getLockerNo();
     }
+
+    @Transactional
+    public Long deleteByLockerId(Long areaId, Long lockerNo) {
+        LockerId lockerId = new LockerId(areaId, lockerNo);
+        Locker locker = lockerRepository.findById(lockerId)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 번호 입니다."));
+
+        lockerRepository.deleteById(locker.getLockerId());
+
+        return locker.getLockerId().getLockerNo();
+    }
+
+
+
 }

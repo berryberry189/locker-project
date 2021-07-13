@@ -49,6 +49,14 @@ public class LockerController {
         return new ResponseEntity(lockerService.update(areaId, lockerNo, lockerRequestDto), HttpStatus.OK);
     }
 
+    /**
+     * 삭제
+     */
+    @DeleteMapping("/{areaId}/{lockerNo}")
+    public ResponseEntity delete(@PathVariable Long areaId,
+                                 @PathVariable Long lockerNo){
+        return new ResponseEntity(lockerService.deleteByLockerId(areaId, lockerNo), HttpStatus.OK);
+    }
 
 
 }
