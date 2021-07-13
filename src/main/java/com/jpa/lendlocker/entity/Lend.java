@@ -41,6 +41,7 @@ public class Lend {
     private int price;
 
     @Column(name = "lend_status")
+    @Enumerated(EnumType.STRING)
     private LendStatus status;
 
     @Column(name = "lend_date")

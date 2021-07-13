@@ -18,6 +18,7 @@ public class Locker {
     private LockerId lockerNo;
 
     @Column(name = "locker_type")
+    @Enumerated(EnumType.STRING)
     private LockerType type;
 
     @Column(name = "locker_price")
