@@ -29,8 +29,10 @@ public class UserService {
      * @param userRequestDto
      * @return
      */
+    @Transactional
     public Long join(UserRequestDto userRequestDto) {
-        //userRepository.findByUserId(dto.getUserId());
+        User user = userRepository.findByUserId(userRequestDto.getUserId());
+        if(user != null)  throw new IllegalArgumentException("이미 있는 아이디 입니다.");
         return userRepository.save(userRequestDto.toEntity()).getId();
     }
 
@@ -39,12 +41,11 @@ public class UserService {
      * @param id
      * @param userRequestDto
      * @return updated id
-     * select만 되는중,,
      */
     @Transactional
     public Long update(Long id, UserRequestDto userRequestDto) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 아이디 입니다" + userRequestDto.getUserId()));
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
 
         if(userRequestDto != null){
             userRepository.save(user.update(userRequestDto));
@@ -59,7 +60,7 @@ public class UserService {
      */
     public UserResponseDto datail(Long id){
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다"));
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
 
         UserResponseDto userResponseDto = new UserResponseDto(user);
 
@@ -74,7 +75,7 @@ public class UserService {
     @Transactional
     public Long deleteById(Long id) {
         Long idx = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다")).getId();
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다.")).getId();
 
         userRepository.deleteById(idx);
 
