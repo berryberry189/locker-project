@@ -39,6 +39,15 @@ public class LockerController {
         return new ResponseEntity(lockerService.create(lockerRequestDto), HttpStatus.CREATED);
     }
 
+    /**
+     * 수정
+     */
+    @PutMapping("/{areaId}/{lockerNo}")
+    public ResponseEntity update(@PathVariable Long areaId,
+                                 @PathVariable Long lockerNo,
+                                 @RequestBody @Valid LockerRequestDto lockerRequestDto){
+        return new ResponseEntity(lockerService.update(areaId, lockerNo, lockerRequestDto), HttpStatus.OK);
+    }
 
 
 
