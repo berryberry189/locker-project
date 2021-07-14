@@ -18,14 +18,6 @@ public class LockerRequestDto {
     private int price;
     private String useYn;
 
-    public LockerRequestDto(Locker locker){
-        this.areaId = locker.getArea().getId();
-        this.lockerNo = locker.getLockerId().getLockerNo();
-        this.type = locker.getType();
-        this.price = locker.getPrice();
-        this.useYn = locker.getUseYn();
-    }
-
     public Locker toEntity(){
         LockerArea area = new LockerArea();
         area.setId(areaId);
