@@ -42,13 +42,13 @@ public class UserService {
 
     /**
      * 회원 수정
-     * @param id
+     * @param userKey
      * @param userRequestDto
      * @return updated id
      */
     @Transactional
-    public Long update(Long id, UserRequestDto userRequestDto) {
-        User user = userRepository.findById(id)
+    public Long update(Long userKey, UserRequestDto userRequestDto) {
+        User user = userRepository.findById(userKey)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
 
         if(userRequestDto != null){
@@ -59,11 +59,11 @@ public class UserService {
 
     /**
      * 회원 상세
-     * @param id
+     * @param userKey
      * @return userDto
      */
-    public UserLendResponseDto datail(Long id){
-        User user = userRepository.findById(id)
+    public UserLendResponseDto datail(Long userKey){
+        User user = userRepository.findById(userKey)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
 
         UserLendResponseDto userLendResponseDto = new UserLendResponseDto(user);
@@ -73,16 +73,16 @@ public class UserService {
 
     /**
      * 회원 삭제
-     * @param id
+     * @param userKey
      * @return deleted Id
      */
     @Transactional
-    public Long deleteById(Long id) {
-        Long idx = userRepository.findById(id)
+    public Long deleteById(Long userKey) {
+        Long id = userRepository.findById(userKey)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다.")).getId();
 
-        userRepository.deleteById(idx);
+        userRepository.deleteById(id);
 
-        return idx;
+        return id;
     }
 }
