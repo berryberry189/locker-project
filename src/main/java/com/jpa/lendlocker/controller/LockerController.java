@@ -22,6 +22,21 @@ public class LockerController {
     private final LockerService lockerService;
 
     /**
+     * 전체 보관함 목록
+     * @param
+     * @return List<LockerResponseDto>
+     */
+    @ApiOperation(value = "전체 보관함 목록 조회",
+                  notes = "전체 보관함 목록을 조회합니다.")
+    @GetMapping("/")
+    public List<LockerResponseDto> list(){
+        List<Locker> lockers = lockerService.findAll();
+        List<LockerResponseDto> result = lockers.stream()
+                .map(LockerResponseDto::new).collect(Collectors.toList());
+        return result;
+    }
+
+    /**
      * 구역 별 보관함 목록
      * @param areaId
      * @return List<LockerResponseDto>

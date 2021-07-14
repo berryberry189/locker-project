@@ -20,6 +20,15 @@ public class LockerService {
     private final LockerRepository lockerRepository;
 
     /**
+     * 전체 보관함 목록
+     * @param
+     * @return List<LockerResponseDto>
+     */
+    public List<Locker> findAll() {
+        return lockerRepository.findAll();
+    }
+
+    /**
      * 구역 별 보관함 목록
      * @param areaId
      * @return
