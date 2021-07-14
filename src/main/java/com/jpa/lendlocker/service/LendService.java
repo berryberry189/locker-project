@@ -20,11 +20,19 @@ public class LendService {
     private final LockerRepository lockerRepository;
     private final UserRepository userRepository;
 
-
+    /**
+     * 전체 대여 목록
+     * @return
+     */
     public List<Lend> findAll() {
         return lendRepository.findAll();
     }
 
+    /**
+     * 대여
+     * @param lendRequestDto
+     * @return
+     */
     @Transactional
     public Long lend(LendRequestDto lendRequestDto) {
         // 엔티티 조회
@@ -38,6 +46,11 @@ public class LendService {
          return lendRepository.save(lend).getId();
     }
 
+    /**
+     * 반납
+     * @param id
+     * @return
+     */
     @Transactional
     public Long returnLend(Long id) {
         // 엔티티 조회

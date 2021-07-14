@@ -1,7 +1,7 @@
 package com.jpa.lendlocker.service;
 
+import com.jpa.lendlocker.dto.UserLendResponseDto;
 import com.jpa.lendlocker.dto.UserRequestDto;
-import com.jpa.lendlocker.dto.UserResponseDto;
 import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +19,14 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    // 회원 목록 조회
+    /**
+     * 회원 전체목록
+     * @return
+     */
     public List<User> findAll(){
         return userRepository.findAll();
     }
+
 
     /**
      * 회원 신규 등록
@@ -58,13 +62,13 @@ public class UserService {
      * @param id
      * @return userDto
      */
-    public UserResponseDto datail(Long id){
+    public UserLendResponseDto datail(Long id){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
 
-        UserResponseDto userResponseDto = new UserResponseDto(user);
+        UserLendResponseDto userLendResponseDto = new UserLendResponseDto(user);
 
-        return userResponseDto;
+        return userLendResponseDto;
     }
 
     /**

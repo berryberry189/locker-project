@@ -3,7 +3,6 @@ package com.jpa.lendlocker.controller;
 import com.jpa.lendlocker.dto.LendRequestDto;
 import com.jpa.lendlocker.dto.LendResponseDto;
 import com.jpa.lendlocker.entity.Lend;
-import com.jpa.lendlocker.entity.LockerId;
 import com.jpa.lendlocker.service.LendService;
 import com.jpa.lendlocker.service.LockerService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

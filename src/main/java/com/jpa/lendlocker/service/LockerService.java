@@ -19,7 +19,11 @@ public class LockerService {
 
     private final LockerRepository lockerRepository;
 
-
+    /**
+     * 구역 당 보관함 목록
+     * @param areaId
+     * @return
+     */
     public List<Locker> findByAreaId(Long areaId) {
         return lockerRepository.findByAreaId(areaId);
     }
