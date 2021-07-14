@@ -7,17 +7,11 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Getter @Setter
-public class UserRequestDto {
+public class UserCreateRequestDto {
 
     private String userId;
     private String name;
     private String mobile;
-
-    public UserRequestDto(User user) {
-        this.userId = user.getUserId();
-        this.name = user.getName();
-        this.mobile = user.getMobile();
-    }
 
     public User toEntity(){
         return User.builder()

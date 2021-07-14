@@ -1,7 +1,7 @@
 package com.jpa.lendlocker.service;
 
 import com.jpa.lendlocker.dto.UserLendResponseDto;
-import com.jpa.lendlocker.dto.UserRequestDto;
+import com.jpa.lendlocker.dto.UserCreateRequestDto;
 import com.jpa.lendlocker.dto.UserUpdateRequestDto;
 import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.repository.UserRepository;
@@ -31,14 +31,14 @@ public class UserService {
 
     /**
      * 회원 신규 등록
-     * @param userRequestDto
+     * @param userCreateRequestDto
      * @return
      */
     @Transactional
-    public Long join(UserRequestDto userRequestDto) {
-        User user = userRepository.findByUserId(userRequestDto.getUserId());
+    public Long join(UserCreateRequestDto userCreateRequestDto) {
+        User user = userRepository.findByUserId(userCreateRequestDto.getUserId());
         if(user != null)  throw new IllegalArgumentException("이미 있는 아이디 입니다.");
-        return userRepository.save(userRequestDto.toEntity()).getId();
+        return userRepository.save(userCreateRequestDto.toEntity()).getId();
     }
 
     /**

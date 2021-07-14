@@ -1,6 +1,6 @@
 package com.jpa.lendlocker.controller;
 
-import com.jpa.lendlocker.dto.UserRequestDto;
+import com.jpa.lendlocker.dto.UserCreateRequestDto;
 import com.jpa.lendlocker.dto.UserResponseDto;
 import com.jpa.lendlocker.dto.UserUpdateRequestDto;
 import com.jpa.lendlocker.entity.User;
@@ -42,15 +42,15 @@ public class UserController {
 
     /**
      * 등록
-     * @param userRequestDto
+     * @param userCreateRequestDto
      * @return
      */
     @ApiOperation(value = "사용자 등록",
                   notes = "사용자를 등록합니다.")
     @PostMapping("/")
-    public ResponseEntity join(@RequestBody @Valid UserRequestDto userRequestDto){
+    public ResponseEntity join(@RequestBody @Valid UserCreateRequestDto userCreateRequestDto){
 
-        return new ResponseEntity(userService.join(userRequestDto), HttpStatus.CREATED);
+        return new ResponseEntity(userService.join(userCreateRequestDto), HttpStatus.CREATED);
     }
 
     /**
