@@ -1,21 +1,18 @@
 package com.jpa.lendlocker.entity;
 
+import com.jpa.lendlocker.dto.LendRequestDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-import com.jpa.lendlocker.entity.User;
-
 import java.time.LocalDateTime;
-
-import static javax.persistence.FetchType.LAZY;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor(access = PROTECTED)
+@NoArgsConstructor
 public class Lend {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +20,11 @@ public class Lend {
     private Long id;
 
     // 연관관계 주인
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_key")
+    @ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    @JoinColumn(name = "user_key" )
     private User user;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name="area_id"),
             @JoinColumn(name="locker_no")
@@ -51,6 +48,32 @@ public class Lend {
     public void setUser(User user){
         this.user = user;
         user.getLends().add(this);
+    }
+
+    @Builder
+    public Lend(int hour, int price, LendStatus status){
+        this.hour = hour;
+        this.price = price;
+        this.status = status;
+    }
+
+
+    public Lend update(LendRequestDto requestDto){
+        this.status = requestDto.getStatus();
+        return this;
+    }
+
+    // 대여할 때 무조건 생성
+    public static Lend lend(User user, Locker locker, LendRequestDto lendRequestDto){
+        Lend lend = new Lend();
+        lend.setUser(user);
+        locker.setUseYn("Y");
+        lend.setLocker(locker);
+        lend.setHour(lendRequestDto.getHour());
+        lend.setPrice(lendRequestDto.getPrice());
+        lend.setStatus(LendStatus.LEND);
+        lend.setLendDate(LocalDateTime.now());
+        return lend;
     }
 
 

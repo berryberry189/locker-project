@@ -49,4 +49,10 @@ public class Locker {
         this.price = requestDto.getPrice();
         return this;
     }
+
+    public Locker updateUseYn(Locker locker) {
+        this.useYn = locker.getUseYn();
+        return this;
+    }
+
 }
