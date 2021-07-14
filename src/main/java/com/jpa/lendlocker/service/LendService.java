@@ -37,4 +37,15 @@ public class LendService {
 
          return lendRepository.save(lend).getId();
     }
+
+    public Long returnLend(Long id) {
+        // 엔티티 조회
+        Lend lend = lendRepository.findById(id).get();
+        Locker locker = lockerRepository.findById(lend.getLocker().getLockerId()).get();
+
+        // 반납 생성
+        lend = Lend.returnLend(locker);
+
+        return lendRepository.save(lend).getId();
+    }
 }

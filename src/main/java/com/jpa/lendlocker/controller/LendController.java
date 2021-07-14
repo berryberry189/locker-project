@@ -9,10 +9,7 @@ import com.jpa.lendlocker.service.LockerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,11 +38,15 @@ public class LendController {
      */
     @PostMapping("/lend")
     public ResponseEntity lend(@RequestBody @Valid LendRequestDto lendRequestDto){
-        // locker useYn 변경
-        lockerService.changeUseYn(
-                new LockerId(lendRequestDto.getAreaId(), lendRequestDto.getLockerNo()));
         return new ResponseEntity(lendService.lend(lendRequestDto), HttpStatus.CREATED);
     }
 
+    /**
+     * 반납
+     */
+    @PutMapping("/return/{id}")
+    public ResponseEntity returnLend(@PathVariable Long id){
+        return new ResponseEntity(lendService.returnLend(id),HttpStatus.OK);
+    }
 
 }

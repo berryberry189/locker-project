@@ -67,16 +67,4 @@ public class LockerService {
         return locker.getLockerId().getLockerNo();
     }
 
-
-    @Transactional
-    public void changeUseYn(LockerId lockerId) {
-        Locker locker = lockerRepository.findById(lockerId)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 번호 입니다."));
-
-        Locker lc = new Locker();
-        lc.setLockerId(lockerId);
-        lc.setUseYn("Y");
-
-        lockerRepository.save(locker.updateUseYn(lc));
-    }
 }

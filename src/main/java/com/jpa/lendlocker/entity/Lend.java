@@ -44,6 +44,7 @@ public class Lend {
     @Column(name = "lend_date")
     private LocalDateTime lendDate;
 
+
     // 연관관계 편의 메소드
     public void setUser(User user){
         this.user = user;
@@ -76,5 +77,13 @@ public class Lend {
         return lend;
     }
 
+    // 반납할때 무조건 생성
+    public static Lend returnLend(Locker locker) {
+        Lend newLend = new Lend();
+        locker.setUseYn("N");
+        newLend.setLocker(locker);
+        newLend.setStatus(LendStatus.RETURN);
+        return newLend;
+    }
 
 }
