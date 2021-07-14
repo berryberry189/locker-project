@@ -20,7 +20,7 @@ public class LockerService {
     private final LockerRepository lockerRepository;
 
     /**
-     * 구역 당 보관함 목록
+     * 구역 별 보관함 목록
      * @param areaId
      * @return
      */

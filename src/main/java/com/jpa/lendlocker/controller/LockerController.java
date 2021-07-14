@@ -22,15 +22,15 @@ public class LockerController {
     private final LockerService lockerService;
 
     /**
-     * 목록
-     * @param lockerRequestDto
+     * 구역 별 보관함 목록
+     * @param areaId
      * @return List<LockerResponseDto>
      */
-    @ApiOperation(value = "보관함 목록 조회",
-                  notes = "모든 보관함 목록을 조회합니다.")
-    @GetMapping("/")
-    public List<LockerResponseDto> list(@RequestBody @Valid LockerRequestDto lockerRequestDto){
-        List<Locker> lockers = lockerService.findByAreaId(lockerRequestDto.getAreaId());
+    @ApiOperation(value = "구역 별 보관함 목록 조회",
+                  notes = "구역 별 모든 보관함 목록을 조회합니다.")
+    @GetMapping("/{areaId}")
+    public List<LockerResponseDto> list(@PathVariable Long areaId){
+        List<Locker> lockers = lockerService.findByAreaId(areaId);
         List<LockerResponseDto> result = lockers.stream()
                 .map(LockerResponseDto::new).collect(Collectors.toList());
         return result;
