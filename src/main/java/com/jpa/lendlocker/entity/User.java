@@ -1,6 +1,6 @@
 package com.jpa.lendlocker.entity;
 
-import com.jpa.lendlocker.dto.UserRequestDto;
+import com.jpa.lendlocker.dto.UserUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,9 +39,9 @@ public class User{
         this.mobile = mobile;
     }
 
-    public User update(UserRequestDto userRequestDto){
-        this.name = userRequestDto.getName();
-        this.mobile = userRequestDto.getMobile();
+    public User update(UserUpdateRequestDto userUpdateRequestDto){
+        this.name = userUpdateRequestDto.getName();
+        this.mobile = userUpdateRequestDto.getMobile();
         return this;
     }
 

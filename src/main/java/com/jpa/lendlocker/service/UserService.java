@@ -2,6 +2,7 @@ package com.jpa.lendlocker.service;
 
 import com.jpa.lendlocker.dto.UserLendResponseDto;
 import com.jpa.lendlocker.dto.UserRequestDto;
+import com.jpa.lendlocker.dto.UserUpdateRequestDto;
 import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,16 +44,16 @@ public class UserService {
     /**
      * 회원 수정
      * @param userKey
-     * @param userRequestDto
+     * @param userUpdateRequestDto
      * @return updated id
      */
     @Transactional
-    public Long update(Long userKey, UserRequestDto userRequestDto) {
+    public Long update(Long userKey, UserUpdateRequestDto userUpdateRequestDto) {
         User user = userRepository.findById(userKey)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
 
-        if(userRequestDto != null){
-            userRepository.save(user.update(userRequestDto));
+        if(userUpdateRequestDto != null){
+            userRepository.save(user.update(userUpdateRequestDto));
         }
         return user.getId();
     }
