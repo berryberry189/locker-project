@@ -78,12 +78,12 @@ public class Lend {
     }
 
     // 반납할때 무조건 생성
-    public static Lend returnLend(Locker locker) {
-        Lend newLend = new Lend();
+    public Lend returnLend(Long id, Locker locker) {
+        this.id = id;
+        this.status = LendStatus.RETURN;
         locker.setUseYn("N");
-        newLend.setLocker(locker);
-        newLend.setStatus(LendStatus.RETURN);
-        return newLend;
+        this.locker = locker;
+        return this;
     }
 
 }
