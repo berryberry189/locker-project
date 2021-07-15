@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
-public class LockerRequestDto {
+public class LockerCreateRequestDto {
 
     private Long areaId;
     private Long lockerNo;

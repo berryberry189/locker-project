@@ -1,6 +1,6 @@
 package com.jpa.lendlocker.controller;
 
-import com.jpa.lendlocker.dto.LockerRequestDto;
+import com.jpa.lendlocker.dto.LockerCreateRequestDto;
 import com.jpa.lendlocker.dto.LockerResponseDto;
 import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
 import com.jpa.lendlocker.entity.Locker;
@@ -54,14 +54,14 @@ public class LockerController {
 
     /**
      * 등록
-     * @param lockerRequestDto
+     * @param lockerCreateRequestDto
      * @return
      */
     @ApiOperation(value = "보관함 등록",
                   notes = "보관함을 신규 등록합니다.")
     @PostMapping("/")
-    public ResponseEntity create(@RequestBody @Valid LockerRequestDto lockerRequestDto){
-        return new ResponseEntity(lockerService.create(lockerRequestDto), HttpStatus.CREATED);
+    public ResponseEntity create(@RequestBody @Valid LockerCreateRequestDto lockerCreateRequestDto){
+        return new ResponseEntity(lockerService.create(lockerCreateRequestDto), HttpStatus.CREATED);
     }
 
     /**

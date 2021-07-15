@@ -1,6 +1,6 @@
 package com.jpa.lendlocker.service;
 
-import com.jpa.lendlocker.dto.LockerRequestDto;
+import com.jpa.lendlocker.dto.LockerCreateRequestDto;
 import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
 import com.jpa.lendlocker.entity.Locker;
 import com.jpa.lendlocker.entity.LockerId;
@@ -40,16 +40,16 @@ public class LockerService {
 
     /**
      * 보관함 신규 등록
-     * @param lockerRequestDto
+     * @param lockerCreateRequestDto
      * @return
      */
     @Transactional
-    public Long create(LockerRequestDto lockerRequestDto) {
-        LockerId lockerId = new LockerId(lockerRequestDto.getAreaId(), lockerRequestDto.getLockerNo());
+    public Long create(LockerCreateRequestDto lockerCreateRequestDto) {
+        LockerId lockerId = new LockerId(lockerCreateRequestDto.getAreaId(), lockerCreateRequestDto.getLockerNo());
         Optional<Locker> locker = lockerRepository.findById(lockerId);
         if(locker != null)  throw new IllegalArgumentException("이미 있는 보관함 번호 입니다.");
-        lockerRequestDto.setUseYn("N");
-        return lockerRepository.save(lockerRequestDto.toEntity()).getLockerId().getLockerNo();
+        lockerCreateRequestDto.setUseYn("N");
+        return lockerRepository.save(lockerCreateRequestDto.toEntity()).getLockerId().getLockerNo();
     }
 
     /**
