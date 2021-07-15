@@ -15,8 +15,6 @@ public class LendRequestDto {
     private Long lockerNo;
     private int hour;
     private int price;
-    private LendStatus status;
-    private String useYn;
 
     public LendRequestDto(Lend lend){
         this.userKey = lend.getUser().getId();
@@ -24,19 +22,6 @@ public class LendRequestDto {
         this.lockerNo = lend.getLocker().getLockerId().getLockerNo();
         this.hour = lend.getHour();
         this.price = lend.getPrice();
-        this.status = lend.getStatus();
-        this.useYn = lend.getLocker().getUseYn();
     }
-
-    public Lend toEntity() {
-
-        return Lend.builder()
-                .hour(hour)
-                .price(price)
-                .status(status)
-                .build();
-
-    }
-
 
 }
