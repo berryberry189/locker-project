@@ -39,6 +39,17 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 상세
+     * @param userKey
+     * @return
+     */
+    @ApiOperation(value = "사용자 상세",
+                  notes = "userKey로 조회하여 사용자의 상세 정보를 조회합니다.")
+    @GetMapping("/{userKey}")
+    public ResponseEntity datail(@PathVariable Long userKey){
+        return new ResponseEntity(userService.datail(userKey), HttpStatus.OK);
+    }
 
     /**
      * 등록
@@ -65,18 +76,6 @@ public class UserController {
                                  @RequestBody @Valid UserUpdateRequestDto userUpdateRequestDto){
 
         return new ResponseEntity(userService.update(userKey, userUpdateRequestDto), HttpStatus.OK);
-    }
-
-    /**
-     * 상세
-     * @param userKey
-     * @return
-     */
-    @ApiOperation(value = "사용자 상세",
-                  notes = "userKey로 조회하여 사용자의 상세 정보를 조회합니다.")
-    @GetMapping("/{userKey}")
-    public ResponseEntity datail(@PathVariable Long userKey){
-        return new ResponseEntity(userService.datail(userKey), HttpStatus.OK);
     }
 
     /**

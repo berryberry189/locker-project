@@ -22,17 +22,30 @@ public class UserService {
 
     /**
      * 회원 전체목록
-     * @return
+     * @return List<User>
      */
     public List<User> findAll(){
         return userRepository.findAll();
     }
 
+    /**
+     * 회원 상세
+     * @param userKey
+     * @return userLendResponseDto
+     */
+    public UserLendResponseDto datail(Long userKey){
+        User user = userRepository.findById(userKey)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
+
+        UserLendResponseDto userLendResponseDto = new UserLendResponseDto(user);
+
+        return userLendResponseDto;
+    }
 
     /**
      * 회원 신규 등록
      * @param userCreateRequestDto
-     * @return
+     * @return created id
      */
     @Transactional
     public Long join(UserCreateRequestDto userCreateRequestDto) {
@@ -56,20 +69,6 @@ public class UserService {
             userRepository.save(user.update(userUpdateRequestDto));
         }
         return user.getId();
-    }
-
-    /**
-     * 회원 상세
-     * @param userKey
-     * @return userDto
-     */
-    public UserLendResponseDto datail(Long userKey){
-        User user = userRepository.findById(userKey)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
-
-        UserLendResponseDto userLendResponseDto = new UserLendResponseDto(user);
-
-        return userLendResponseDto;
     }
 
     /**
