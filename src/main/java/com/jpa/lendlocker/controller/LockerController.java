@@ -2,6 +2,7 @@ package com.jpa.lendlocker.controller;
 
 import com.jpa.lendlocker.dto.LockerRequestDto;
 import com.jpa.lendlocker.dto.LockerResponseDto;
+import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
 import com.jpa.lendlocker.entity.Locker;
 import com.jpa.lendlocker.service.LockerService;
 import io.swagger.annotations.ApiOperation;
@@ -22,12 +23,12 @@ public class LockerController {
     private final LockerService lockerService;
 
     /**
-     * 전체 보관함 목록
+     * 목록
      * @param
      * @return List<LockerResponseDto>
      */
-    @ApiOperation(value = "전체 보관함 목록 조회",
-                  notes = "전체 보관함 목록을 조회합니다.")
+    @ApiOperation(value = "모든 보관함 목록 조회",
+                  notes = "모든 보관함 목록을 조회합니다.")
     @GetMapping("/")
     public List<LockerResponseDto> list(){
         List<Locker> lockers = lockerService.findAll();
@@ -37,12 +38,12 @@ public class LockerController {
     }
 
     /**
-     * 구역 별 보관함 목록
+     * 구역 별 목록
      * @param areaId
      * @return List<LockerResponseDto>
      */
     @ApiOperation(value = "구역 별 보관함 목록 조회",
-                  notes = "구역 별 모든 보관함 목록을 조회합니다.")
+                  notes = "구역 별 보관함 목록을 조회합니다.")
     @GetMapping("/{areaId}")
     public List<LockerResponseDto> listByAreaId(@PathVariable Long areaId){
         List<Locker> lockers = lockerService.findByAreaId(areaId);
@@ -65,7 +66,7 @@ public class LockerController {
 
     /**
      * 수정
-     * @param areaId, lockerNo, lockerRequestDto
+     * @param areaId, lockerNo, lockerUpdateRequestDto
      * @return
      */
     @ApiOperation(value = "보관함 수정",
@@ -73,8 +74,8 @@ public class LockerController {
     @PutMapping("/{areaId}/{lockerNo}")
     public ResponseEntity update(@PathVariable Long areaId,
                                  @PathVariable Long lockerNo,
-                                 @RequestBody @Valid LockerRequestDto lockerRequestDto){
-        return new ResponseEntity(lockerService.update(areaId, lockerNo, lockerRequestDto), HttpStatus.OK);
+                                 @RequestBody @Valid LockerUpdateRequestDto lockerUpdateRequestDto){
+        return new ResponseEntity(lockerService.update(areaId, lockerNo, lockerUpdateRequestDto), HttpStatus.OK);
     }
 
     /**

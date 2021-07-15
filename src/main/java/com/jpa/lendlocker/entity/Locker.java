@@ -1,6 +1,7 @@
 package com.jpa.lendlocker.entity;
 
 import com.jpa.lendlocker.dto.LockerRequestDto;
+import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,14 +45,10 @@ public class Locker {
         this.area = area;
     }
 
-    public Locker update(LockerRequestDto requestDto) {
-        this.type = requestDto.getType();
-        this.price = requestDto.getPrice();
-        return this;
-    }
-
-    public Locker updateUseYn(Locker locker) {
-        this.useYn = locker.getUseYn();
+    public Locker update(LockerUpdateRequestDto lockerUpdateRequestDto) {
+        this.type = lockerUpdateRequestDto.getType();
+        this.price = lockerUpdateRequestDto.getPrice();
+        this.useYn = lockerUpdateRequestDto.getUseYn();
         return this;
     }
 
