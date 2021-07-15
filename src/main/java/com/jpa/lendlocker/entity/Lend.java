@@ -58,12 +58,6 @@ public class Lend {
         this.status = status;
     }
 
-
-    public Lend update(LendRequestDto requestDto){
-        this.status = requestDto.getStatus();
-        return this;
-    }
-
     // 대여할 때 무조건 생성
     public static Lend lend(User user, Locker locker, LendRequestDto lendRequestDto){
         Lend lend = new Lend();
