@@ -13,12 +13,11 @@
   
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:------------|:------------|:-------------|:-------------|
-| /user  | 모든 목록 조회 | GET   |      |      |
-| /user/{areaId}  | 구역 별 목록 조회 | GET   |      |      |
-| /user/{userKey} | 상세 | GET  |      |      |  
-| /user   | 등록 | GET   | POST |      |
-| /user /{userKey}  | 수정 | PUT   |      |      |
-| /user/{userKey} | 삭제 | DELETE  |      |      |  
+| /user           | 모든 목록 조회 | GET    |      |List\<UserResponseDto\>|
+| /user/{userKey} | 상세 | GET   | userKey  | userLendResponseDto |  
+| /user           | 등록 | POST  | userCreateRequestDto | userKey |
+| /user /{userKey}| 수정 | PUT   | userKey, userUpdateRequestDto | userKey |
+| /user/{userKey} | 삭제 | DELETE| userKey | userKey |  
 
  <br>
   
@@ -26,16 +25,17 @@
   
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:----------- |:------------|:-------------|:-------------|
-| /locker       | 목록        | GET   |      |      |
-| /locker       | 등록        | GET   |      |      |
-| /locker/{areaId}/{lockerNo} | 수정 | PUT   |      |      |
-| /locker/{areaId}/{lockerNo} | 삭제 | DELETE|      |      |  
+| /locker       | 목록        | GET   |      | List\<LockerResponseDto\> |
+| /locker/{areaId}| 구역 별 목록 조회 | GET | areaId | List\<LockerResponseDto\> |
+| /locker       | 등록        | GET   | lockerCreateRequestDto | lockerNo |
+| /locker/{areaId}/{lockerNo} | 수정 | PUT   | areaId, lockerNo, lockerRequestDto | lockerNo |
+| /locker/{areaId}/{lockerNo} | 삭제 | DELETE| areaId, lockerNo | lockerNo |  
   
  <br>
   
- **LendrController**
+ **LendController**
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:------------|:------------|:-------------|:-------------|
-| /lend   | 전체 조회  | GET  |      |      |
-| /lend   | 대여       | GET  |      |      |
-| /return/{id} | 반납  | PUT  |      |      |
+| /lend   | 전체 조회  | GET  |      | List\<LendResponseDto\> |
+| /lend   | 대여       | GET  | lendRequestDto | id |
+| /return/{id} | 반납  | PUT  | id   | id |
