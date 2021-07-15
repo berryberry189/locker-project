@@ -10,7 +10,9 @@ import java.util.Objects;
 
 @Embeddable
 @Getter
-public class LockerId implements Serializable {
+public class
+
+LockerId implements Serializable {
 
     private Long areaId;
 

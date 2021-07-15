@@ -1,6 +1,7 @@
 package com.jpa.lendlocker.service;
 
 import com.jpa.lendlocker.dto.LockerRequestDto;
+import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
 import com.jpa.lendlocker.entity.Locker;
 import com.jpa.lendlocker.entity.LockerId;
 import com.jpa.lendlocker.repository.LockerRepository;
@@ -20,7 +21,16 @@ public class LockerService {
     private final LockerRepository lockerRepository;
 
     /**
-     * 구역 당 보관함 목록
+     * 목록
+     * @param
+     * @return List<LockerResponseDto>
+     */
+    public List<Locker> findAll() {
+        return lockerRepository.findAll();
+    }
+
+    /**
+     * 구역 별 보관함 목록
      * @param areaId
      * @return
      */
@@ -44,17 +54,17 @@ public class LockerService {
 
     /**
      * 보관함 수정
-     * @param lockerRequestDto
+     * @param lockerUpdateRequestDto
      * @return
      */
     @Transactional
-    public Long update(Long areaId, Long lockerNo, LockerRequestDto lockerRequestDto) {
+    public Long update(Long areaId, Long lockerNo, LockerUpdateRequestDto lockerUpdateRequestDto) {
         LockerId lockerId = new LockerId(areaId, lockerNo);
         Locker locker = lockerRepository.findById(lockerId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 번호 입니다."));
 
-        if(lockerRequestDto != null){
-            lockerRepository.save(locker.update(lockerRequestDto));
+        if(lockerUpdateRequestDto != null){
+            lockerRepository.save(locker.update(lockerUpdateRequestDto));
         }
 
         return locker.getLockerId().getLockerNo();
@@ -70,5 +80,4 @@ public class LockerService {
 
         return locker.getLockerId().getLockerNo();
     }
-
 }
