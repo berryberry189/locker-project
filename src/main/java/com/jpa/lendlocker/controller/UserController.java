@@ -59,7 +59,7 @@ public class UserController {
     @ApiOperation(value = "사용자 등록",
                   notes = "사용자를 등록합니다.")
     @PostMapping("/")
-    public ResponseEntity join(@RequestBody @Valid UserCreateRequestDto userCreateRequestDto){
+    public ResponseEntity join(@RequestBody UserCreateRequestDto userCreateRequestDto){
 
         return new ResponseEntity(userService.join(userCreateRequestDto), HttpStatus.CREATED);
     }
@@ -73,7 +73,7 @@ public class UserController {
                   notes = "userKey로 조회하여 사용자를 등록합니다.")
     @PutMapping("/{userKey}")
     public ResponseEntity update(@PathVariable Long userKey,
-                                 @RequestBody @Valid UserUpdateRequestDto userUpdateRequestDto){
+                                 @RequestBody UserUpdateRequestDto userUpdateRequestDto){
 
         return new ResponseEntity(userService.update(userKey, userUpdateRequestDto), HttpStatus.OK);
     }

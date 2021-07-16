@@ -45,7 +45,7 @@ public class LendController {
     @ApiOperation(value = "사물함 대여",
                   notes = "사물함을 대여합니다.")
     @PostMapping("/lend")
-    public ResponseEntity lend(@RequestBody @Valid LendRequestDto lendRequestDto){
+    public ResponseEntity lend(@RequestBody LendRequestDto lendRequestDto){
         return new ResponseEntity(lendService.lend(lendRequestDto), HttpStatus.CREATED);
     }
 

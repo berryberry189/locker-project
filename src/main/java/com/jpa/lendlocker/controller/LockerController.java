@@ -60,7 +60,7 @@ public class LockerController {
     @ApiOperation(value = "보관함 등록",
                   notes = "보관함을 신규 등록합니다.")
     @PostMapping("/")
-    public ResponseEntity create(@RequestBody @Valid LockerCreateRequestDto lockerCreateRequestDto){
+    public ResponseEntity create(@RequestBody LockerCreateRequestDto lockerCreateRequestDto){
         return new ResponseEntity(lockerService.create(lockerCreateRequestDto), HttpStatus.CREATED);
     }
 
@@ -74,7 +74,7 @@ public class LockerController {
     @PutMapping("/{areaId}/{lockerNo}")
     public ResponseEntity update(@PathVariable Long areaId,
                                  @PathVariable Long lockerNo,
-                                 @RequestBody @Valid LockerUpdateRequestDto lockerUpdateRequestDto){
+                                 @RequestBody LockerUpdateRequestDto lockerUpdateRequestDto){
         return new ResponseEntity(lockerService.update(areaId, lockerNo, lockerUpdateRequestDto), HttpStatus.OK);
     }
 
