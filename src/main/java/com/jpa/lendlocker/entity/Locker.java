@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -29,6 +31,9 @@ public class Locker {
     private int price;
 
     private String useYn;
+
+    @OneToMany(mappedBy = "locker", cascade= CascadeType.ALL)
+    private List<Lend> lends = new ArrayList<>();
 
     @Builder
     public Locker(LockerArea area, LockerId lockerId, LockerType type, int price, String useYn){

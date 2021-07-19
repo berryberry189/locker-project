@@ -24,7 +24,7 @@ public class Lend {
     @JoinColumn(name = "user_key" )
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name="area_id"),
             @JoinColumn(name="locker_no")
