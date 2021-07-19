@@ -1,9 +1,12 @@
 package com.jpa.lendlocker.dto;
 
 import com.jpa.lendlocker.entity.*;
+import com.jpa.lendlocker.enums.LendStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -16,12 +19,16 @@ public class LendRequestDto {
     private int hour;
     private int price;
 
-    public LendRequestDto(Lend lend){
-        this.userKey = lend.getUser().getId();
-        this.areaId = lend.getLocker().getLockerId().getAreaId();
-        this.lockerNo = lend.getLocker().getLockerId().getLockerNo();
-        this.hour = lend.getHour();
-        this.price = lend.getPrice();
+    public Lend toEntity(User user, Locker locker){
+        locker.setUseYn("Y");
+        return Lend.builder()
+                .user(user)
+                .locker(locker)
+                .hour(hour)
+                .price(price)
+                .status(LendStatus.LEND)
+                .lendDate(LocalDateTime.now())
+                .build();
     }
 
 }

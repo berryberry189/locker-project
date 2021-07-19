@@ -53,24 +53,15 @@ public class Lend {
     }
 
     @Builder
-    public Lend(int hour, int price, LendStatus status){
+    public Lend(User user, Locker locker, int hour, int price, LendStatus status, LocalDateTime lendDate){
+        this.user = user;
+        this.locker = locker;
         this.hour = hour;
         this.price = price;
         this.status = status;
+        this.lendDate = lendDate;
     }
 
-    // 대여할 때 무조건 생성
-    public static Lend lend(User user, Locker locker, LendRequestDto lendRequestDto){
-        Lend lend = new Lend();
-        lend.setUser(user);
-        locker.setUseYn("Y");
-        lend.setLocker(locker);
-        lend.setHour(lendRequestDto.getHour());
-        lend.setPrice(lendRequestDto.getPrice());
-        lend.setStatus(LendStatus.LEND);
-        lend.setLendDate(LocalDateTime.now());
-        return lend;
-    }
 
     // 반납할때 무조건 생성
     public Lend returnLend(Long id, Locker locker) {

@@ -40,10 +40,7 @@ public class LendService {
         Locker locker = lockerRepository.findById(
                 new LockerId(lendRequestDto.getAreaId(), lendRequestDto.getLockerNo())).get();
 
-        // 대여 생성
-        Lend lend = Lend.lend(user, locker, lendRequestDto);
-
-         return lendRepository.save(lend).getId();
+         return lendRepository.save(lendRequestDto.toEntity(user, locker)).getId();
     }
 
     /**
