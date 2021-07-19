@@ -2,16 +2,17 @@ package com.jpa.lendlocker.controller;
 
 import com.jpa.lendlocker.dto.UserCreateRequestDto;
 import com.jpa.lendlocker.dto.UserResponseDto;
+import com.jpa.lendlocker.dto.UserSearchCondition;
 import com.jpa.lendlocker.dto.UserUpdateRequestDto;
 import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,11 +31,13 @@ public class UserController {
     @ApiOperation(value = "사용자 목록 조회",
                   notes = "모든 사용자 목록을 조회합니다.")
     @GetMapping("/")
-    public ResponseEntity list(){
+    public ResponseEntity list(UserSearchCondition condition, Pageable pagable){
 
         List<User> users = userService.findAll();
         List<UserResponseDto> result = users.stream()
                 .map(UserResponseDto::new).collect(Collectors.toList());
+
+        //userService.search(condition, pagable);
 
         return new ResponseEntity(result, HttpStatus.OK);
     }
