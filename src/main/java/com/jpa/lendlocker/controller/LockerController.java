@@ -30,11 +30,11 @@ public class LockerController {
     @ApiOperation(value = "전체 보관함 목록 조회",
                   notes = "전체 보관함 목록을 조회합니다.")
     @GetMapping("/")
-    public List<LockerResponseDto> list(){
+    public ResponseEntity list(){
         List<Locker> lockers = lockerService.findAll();
         List<LockerResponseDto> result = lockers.stream()
                 .map(LockerResponseDto::new).collect(Collectors.toList());
-        return result;
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     /**
@@ -45,11 +45,11 @@ public class LockerController {
     @ApiOperation(value = "구역 별 보관함 목록 조회",
                   notes = "구역 별 모든 보관함 목록을 조회합니다.")
     @GetMapping("/{areaId}")
-    public List<LockerResponseDto> listByAreaId(@PathVariable Long areaId){
+    public ResponseEntity listByAreaId(@PathVariable Long areaId){
         List<Locker> lockers = lockerService.findByAreaId(areaId);
         List<LockerResponseDto> result = lockers.stream()
                 .map(LockerResponseDto::new).collect(Collectors.toList());
-        return result;
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     /**

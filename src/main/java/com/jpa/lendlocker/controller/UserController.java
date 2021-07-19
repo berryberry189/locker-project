@@ -30,13 +30,13 @@ public class UserController {
     @ApiOperation(value = "사용자 목록 조회",
                   notes = "모든 사용자 목록을 조회합니다.")
     @GetMapping("/")
-    public List<UserResponseDto> list(){
+    public ResponseEntity list(){
 
         List<User> users = userService.findAll();
         List<UserResponseDto> result = users.stream()
                 .map(UserResponseDto::new).collect(Collectors.toList());
 
-        return result;
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     /**

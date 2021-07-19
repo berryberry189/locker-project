@@ -30,11 +30,11 @@ public class LendController {
     @ApiOperation(value = "대여 목록 조회",
                   notes = "모든 대여 목록을 조회합니다.")
     @GetMapping("/lend")
-    public List<LendResponseDto> list(){
+    public ResponseEntity list(){
         List<Lend> lends = lendService.findAll();
         List<LendResponseDto> result = lends.stream()
                 .map(LendResponseDto::new).collect(Collectors.toList());
-        return result;
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     /**
