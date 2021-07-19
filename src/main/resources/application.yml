@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   h2:
     console:
       enabled: true
@@ -11,7 +13,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -20,3 +22,6 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+server:
+  port: 8090
