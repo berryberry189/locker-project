@@ -24,22 +24,17 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * 목록
+     * 검색 목록
      * @param
      * @return List<UserResponseDto>
      */
-    @ApiOperation(value = "사용자 목록 조회",
-                  notes = "모든 사용자 목록을 조회합니다.")
+    @ApiOperation(value = "사용자 검색 목록 조회",
+                  notes = "사용자 ID 내림차순으로 조회합니다.\n" +
+                          "검색 조건이 없을 경우 전체 조회되며 페이징 처리를 하여 보여줍니다.")
     @GetMapping("/")
     public ResponseEntity list(UserSearchCondition condition, Pageable pagable){
 
-        List<User> users = userService.findAll();
-        List<UserResponseDto> result = users.stream()
-                .map(UserResponseDto::new).collect(Collectors.toList());
-
-        //userService.search(condition, pagable);
-
-        return new ResponseEntity(result, HttpStatus.OK);
+        return new ResponseEntity(userService.search(condition, pagable), HttpStatus.OK);
     }
 
     /**

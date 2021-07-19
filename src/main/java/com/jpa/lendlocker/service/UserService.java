@@ -1,11 +1,11 @@
 package com.jpa.lendlocker.service;
 
-import com.jpa.lendlocker.dto.UserLendResponseDto;
-import com.jpa.lendlocker.dto.UserCreateRequestDto;
-import com.jpa.lendlocker.dto.UserUpdateRequestDto;
+import com.jpa.lendlocker.dto.*;
 import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +26,15 @@ public class UserService {
      */
     public List<User> findAll(){
         return userRepository.findAll();
+    }
+
+    /**
+     * 회원 검색
+     * @param condition, pagable
+     * @return userLendResponseDto
+     */
+    public Page<UserResponseDto> search(UserSearchCondition condition, Pageable pagable) {
+        return userRepository.search(condition, pagable);
     }
 
     /**
@@ -51,7 +60,7 @@ public class UserService {
     public Long join(UserCreateRequestDto userCreateRequestDto) {
         User user = userRepository.findByUserId(userCreateRequestDto.getUserId());
         if(user != null)  throw new IllegalArgumentException("이미 있는 아이디 입니다.");
-        return userRepository.save(userCreateRequestDto.toEntity()).getId();
+        return userRepository.save(userCreateRequestDto.toEntity()).getUserKey();
     }
 
     /**
@@ -68,7 +77,7 @@ public class UserService {
         if(userUpdateRequestDto != null){
             userRepository.save(user.update(userUpdateRequestDto));
         }
-        return user.getId();
+        return user.getUserKey();
     }
 
     /**
@@ -79,7 +88,7 @@ public class UserService {
     @Transactional
     public Long deleteById(Long userKey) {
         Long id = userRepository.findById(userKey)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다.")).getId();
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다.")).getUserKey();
 
         userRepository.deleteById(id);
 
