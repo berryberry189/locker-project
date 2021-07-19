@@ -1,7 +1,7 @@
 package com.jpa.lendlocker.dto;
 
 import com.jpa.lendlocker.entity.Lend;
-import com.jpa.lendlocker.entity.LendStatus;
+import com.jpa.lendlocker.enums.LendStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

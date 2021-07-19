@@ -1,6 +1,7 @@
 package com.jpa.lendlocker.entity;
 
 import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
+import com.jpa.lendlocker.enums.LockerType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

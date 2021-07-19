@@ -1,4 +1,4 @@
-package com.jpa.lendlocker.entity;
+package com.jpa.lendlocker.enums;
 
 public enum LockerType {
     // 대, 중, 소
