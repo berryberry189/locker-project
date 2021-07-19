@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -36,9 +37,11 @@ public class LendService {
     @Transactional
     public Long lend(LendRequestDto lendRequestDto) {
         // 엔티티 조회
-        User user = userRepository.findById(lendRequestDto.getUserKey()).get();
+        User user = userRepository.findById(lendRequestDto.getUserKey())
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
         Locker locker = lockerRepository.findById(
-                new LockerId(lendRequestDto.getAreaId(), lendRequestDto.getLockerNo())).get();
+                new LockerId(lendRequestDto.getAreaId(), lendRequestDto.getLockerNo()))
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 입니다."));
 
          return lendRepository.save(lendRequestDto.toEntity(user, locker)).getId();
     }
@@ -51,8 +54,10 @@ public class LendService {
     @Transactional
     public Long returnLend(Long id) {
         // 엔티티 조회
-        Lend lend = lendRepository.findById(id).get();
-        Locker locker = lockerRepository.findById(lend.getLocker().getLockerId()).get();
+        Lend lend = lendRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 대여 정보 입니다."));
+        Locker locker = lockerRepository.findById(lend.getLocker().getLockerId())
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 입니다."));
 
         return lendRepository.save(lend.returnLend(id, locker)).getId();
     }
