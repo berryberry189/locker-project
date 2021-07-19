@@ -9,13 +9,13 @@ import lombok.Setter;
 @Getter @Setter
 public class UserResponseDto {
 
-    private Long id;
+    private Long userKey;
     private String userId;
     private String name;
     private String mobile;
 
     public UserResponseDto(User user) {
-        this.id = user.getId();
+        this.userKey = user.getUserKey();
         this.userId = user.getUserId();
         this.name = user.getName();
         this.mobile = user.getMobile();
