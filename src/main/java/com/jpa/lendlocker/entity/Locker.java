@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Locker {
 
     @MapsId("areaId")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "area_id")
     private LockerArea area;
 
