@@ -24,12 +24,15 @@ public class LockerRepositoryTest {
     EntityManager em;
 
     @Autowired LockerRepository lockerRepository;
+    @Autowired LockerAreaRepository lockerAreaRepository;
 
     @Test
     public void searchTest(){
         // given
         LockerArea area = new LockerArea();
         area.setId(1L); area.setName("구역1");
+        lockerAreaRepository.save(area);
+
         LockerId lockerId1 = new LockerId(1L, 1L);
         lockerRepository.save(Locker.builder()
                 .area(area)
@@ -71,5 +74,10 @@ public class LockerRepositoryTest {
         Assertions.assertThat(results.getTotalElements()).isEqualTo(3);
         Assertions.assertThat(results.getTotalPages()).isEqualTo(2);
         //Assertions.assertThat(results.getTotalElements()).isEqualTo(2);
+        Assertions.assertThat(results.getContent().get(0).getAreaName()).isEqualTo("구역1");
+
+        for(LockerResponseDto dto : results){
+            System.out.println("dto= " + dto.getAreaName() +" / " + dto.getLockerNo());
+        }
     }
 }
