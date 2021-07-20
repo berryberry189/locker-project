@@ -1,11 +1,15 @@
 package com.jpa.lendlocker.service;
 
 import com.jpa.lendlocker.dto.LockerCreateRequestDto;
+import com.jpa.lendlocker.dto.LockerResponseDto;
+import com.jpa.lendlocker.dto.LockerSearchCondition;
 import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
 import com.jpa.lendlocker.entity.Locker;
 import com.jpa.lendlocker.entity.LockerId;
 import com.jpa.lendlocker.repository.LockerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +31,15 @@ public class LockerService {
      */
     public List<Locker> findAll() {
         return lockerRepository.findAll();
+    }
+
+    /**
+     * 회원 검색
+     * @param condition, pageable
+     * @return
+     */
+    public Page<LockerResponseDto> search(LockerSearchCondition condition, Pageable pageable) {
+        return lockerRepository.search(condition, pageable);
     }
 
     /**
@@ -80,4 +93,5 @@ public class LockerService {
 
         return locker.getLockerId().getLockerNo();
     }
+
 }

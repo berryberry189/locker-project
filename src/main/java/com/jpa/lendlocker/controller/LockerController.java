@@ -2,11 +2,13 @@ package com.jpa.lendlocker.controller;
 
 import com.jpa.lendlocker.dto.LockerCreateRequestDto;
 import com.jpa.lendlocker.dto.LockerResponseDto;
+import com.jpa.lendlocker.dto.LockerSearchCondition;
 import com.jpa.lendlocker.dto.LockerUpdateRequestDto;
 import com.jpa.lendlocker.entity.Locker;
 import com.jpa.lendlocker.service.LockerService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +24,16 @@ public class LockerController {
     private final LockerService lockerService;
 
     /**
-     * 전체 보관함 목록
+     * 검색 목록
      * @param
      * @return List<LockerResponseDto>
      */
     @ApiOperation(value = "전체 보관함 목록 조회",
                   notes = "전체 보관함 목록을 조회합니다.")
     @GetMapping("/")
-    public ResponseEntity list(){
-        List<Locker> lockers = lockerService.findAll();
-        List<LockerResponseDto> result = lockers.stream()
-                .map(LockerResponseDto::new).collect(Collectors.toList());
-        return new ResponseEntity(result, HttpStatus.OK);
+    public ResponseEntity list(LockerSearchCondition condition, Pageable pageable){
+
+        return new ResponseEntity(lockerService.search(condition, pageable), HttpStatus.OK);
     }
 
     /**
