@@ -17,7 +17,7 @@ import java.util.List;
 public class Locker {
 
     @MapsId("areaId")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "area_id")
     private LockerArea area;
 
