@@ -15,6 +15,9 @@ public class LockerSearchCondition {
     @ApiParam(value = "[검색 조건] 사물함 번호")
     private Long lockerNo;
 
+    @ApiParam(value = "[검색 조건] 구역 명")
+    private String areaName;
+
     @ApiParam(value = "[검색 조건] 사물함 종류")
     private LockerType type;
 
