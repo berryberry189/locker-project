@@ -17,11 +17,11 @@ import java.util.List;
 
 import static com.jpa.lendlocker.entity.QUser.user;
 
-public class UserRepositoryImpl implements UserRepositoryCustom{
+public class UserRepositoryCustomImpl implements UserRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
 
-    public UserRepositoryImpl(EntityManager em) {
+    public UserRepositoryCustomImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
