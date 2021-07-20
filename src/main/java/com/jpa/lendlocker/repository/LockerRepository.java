@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface LockerRepository extends JpaRepository<Locker, LockerId> {
+public interface LockerRepository extends JpaRepository<Locker, LockerId>, LockerRepositoryCustom {
     List<Locker> findByAreaId(Long areaId);
 }
