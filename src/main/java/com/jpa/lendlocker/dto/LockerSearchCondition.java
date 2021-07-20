@@ -9,8 +9,11 @@ import lombok.Setter;
 @Getter @Setter
 public class LockerSearchCondition {
 
-    @ApiParam(value = "[검색 조건] 사물함 구역& 번호")
-    private LockerId lockerId;
+    @ApiParam(value = "[검색 조건] 사물함 구역")
+    private Long areaId;
+
+    @ApiParam(value = "[검색 조건] 사물함 번호")
+    private Long lockerNo;
 
     @ApiParam(value = "[검색 조건] 사물함 종류")
     private LockerType type;

@@ -40,7 +40,7 @@ public class LockerRepositoryCustomImpl implements LockerRepositoryCustom{
                         locker.useYn))
                 .from(locker)
                 .where(
-                        lockerIdEq(condition.getLockerId()),
+                        lockerIdEq(condition.getAreaId(), condition.getLockerNo()),
                         typeEq(condition.getType()),
                         userYnEq(condition.getUseYn())
                 )
@@ -55,8 +55,8 @@ public class LockerRepositoryCustomImpl implements LockerRepositoryCustom{
         return new PageImpl<>(content, pageable, total);
     }
 
-    private BooleanExpression lockerIdEq(LockerId lockerId) {
-        return lockerId != null ? locker.lockerId.eq(lockerId) : null;
+    private BooleanExpression lockerIdEq(Long areaId,  Long lockerNo) {
+        return (areaId != null) && (lockerNo != null) ? locker.lockerId.eq(new LockerId(areaId, lockerNo)) : null;
     }
 
     private BooleanExpression typeEq(LockerType type) {
