@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.jpa.lendlocker.entity.QLocker.locker;
+import static com.jpa.lendlocker.entity.QLockerArea.lockerArea;
 
 public class LockerRepositoryCustomImpl implements LockerRepositoryCustom{
 
@@ -26,25 +27,35 @@ public class LockerRepositoryCustomImpl implements LockerRepositoryCustom{
         queryFactory = new JPAQueryFactory(em);
     }
 
+    /**
+     * 보관함 검색 조회
+     * 구역명, 보관함 번호 오름차순으로 정렬
+     * 검색 조건: 구역명, 보관함 유형, 사용 가능 여부
+     * @param condition
+     * @param pageable
+     * @return
+     */
     @Override
     public Page<LockerResponseDto> search(LockerSearchCondition condition, Pageable pageable) {
 
         QueryResults<LockerResponseDto> results = queryFactory
                 .select(Projections.fields(
                         LockerResponseDto.class,
-                        locker.area.id,
-                        locker.area.name,
+                        lockerArea.id.as("areaId"),
+                        lockerArea.name.as("areaName"),
                         locker.lockerId.lockerNo,
                         locker.type,
                         locker.price,
                         locker.useYn))
                 .from(locker)
+                .leftJoin(locker.area, lockerArea)
                 .where(
-                        lockerIdEq(condition.getAreaId(), condition.getLockerNo()),
+                        areaNameEq(condition.getAreaName()),
                         typeEq(condition.getType()),
-                        userYnEq(condition.getUseYn())
-                )
-                .orderBy(locker.lockerId.lockerNo.asc())
+                        userYnEq(condition.getUseYn()))
+                .orderBy(
+                        lockerArea.name.asc(),
+                        locker.lockerId.lockerNo.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
@@ -57,6 +68,10 @@ public class LockerRepositoryCustomImpl implements LockerRepositoryCustom{
 
     private BooleanExpression lockerIdEq(Long areaId,  Long lockerNo) {
         return (areaId != null) && (lockerNo != null) ? locker.lockerId.eq(new LockerId(areaId, lockerNo)) : null;
+    }
+
+    private BooleanExpression areaNameEq(String areaName) {
+        return areaName != null ? lockerArea.name.eq(areaName) : null;
     }
 
     private BooleanExpression typeEq(LockerType type) {
