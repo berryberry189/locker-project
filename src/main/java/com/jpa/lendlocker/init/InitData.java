@@ -24,7 +24,7 @@ public class InitData {
     public void init(){
         initDataService.initUser();
         initDataService.initArea();
-        //initDataService.initLocker();
+        initDataService.initLocker();
     }
 
     @Component
@@ -49,11 +49,15 @@ public class InitData {
 
         @Transactional
         public void initLocker(){
+            em.flush();
+            em.clear();
+            LockerArea area = new LockerArea();
+            area.setId(1L);
             for(int i=1; i<=20; i++){
                 LockerType type = (i%3 == 0) ? LockerType.LARGE : ( i%3 == 1 ? LockerType.SMALL : LockerType.MEDIUM);
                 int price = (i%3 == 0) ? 5000 : ( i%3 == 1 ? 2000 : 3000);
                 LockerId lockerId = new LockerId(1L, Long.valueOf(i));
-                em.persist(new Locker(lockerId, type, price, "Y"));
+                em.merge(new Locker(area, lockerId, type, price, "Y"));
             }
         }
 
