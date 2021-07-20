@@ -26,7 +26,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
     }
 
     @Override
-    public Page<UserResponseDto> search(UserSearchCondition condition, Pageable pagable) {
+    public Page<UserResponseDto> search(UserSearchCondition condition, Pageable pageable) {
 
        QueryResults<UserResponseDto> results = queryFactory
                 .select(Projections.fields(
@@ -44,14 +44,14 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
                         mobileEq(condition.getMobile())
                 )
                 .orderBy(user.userId.asc())
-                .offset(pagable.getOffset())
-                .limit(pagable.getPageSize())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetchResults();
 
         List<UserResponseDto> content = results.getResults();
         long total = results.getTotal();
 
-        return new PageImpl<>(content, pagable, total);
+        return new PageImpl<>(content, pageable, total);
     }
 
     private Predicate allCheck(String name, String userId, String mobile){
