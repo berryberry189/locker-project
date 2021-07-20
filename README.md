@@ -2,7 +2,7 @@
 물품 보관함 api
 
 ### 테이블 설계
-![물품보관함 테이블](https://user-images.githubusercontent.com/58412521/125407903-4c358280-e3f5-11eb-8e8a-da92f83e5874.PNG)
+<img width="1039" alt="테이블구조" src="https://user-images.githubusercontent.com/58412521/126139844-29ba164b-83d3-4462-a4d1-12d9f9372d56.png">
 
 ### 엔티티 설계
 <img src = "https://user-images.githubusercontent.com/58412521/125769825-433d5821-fc5a-4c68-9194-53c7556b1f50.jpg" width="50%" height="50%">
