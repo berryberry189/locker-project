@@ -5,7 +5,7 @@
 <img width="1039" alt="테이블구조" src="https://user-images.githubusercontent.com/58412521/126139844-29ba164b-83d3-4462-a4d1-12d9f9372d56.png">
 
 ### 엔티티 설계
-<img src = "https://user-images.githubusercontent.com/58412521/125769825-433d5821-fc5a-4c68-9194-53c7556b1f50.jpg" width="50%" height="50%">
+<img width="543" alt="엔티티 설계" src="https://user-images.githubusercontent.com/58412521/126312696-e56768de-b027-4094-854f-f2f129096ef0.png">
 
 ## API 명세
 
