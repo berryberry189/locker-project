@@ -59,20 +59,23 @@ public class LendRepositoryTest {
                 .hour(3)
                 .price(15000)
                 .status(LendStatus.LEND)
-                .lendDate(LocalDateTime.now())
+                .lendDate(LocalDateTime.now().minusDays(1))
                 .build();
         lendRepository.save(lend);
 
         LendSearchCondition condition = new LendSearchCondition();
-        condition.setAreaName("구역1");
-        condition.setUserId("userB");
-        condition.setStatus(LendStatus.LEND);
+        //condition.setAreaName("구역1");
+        //condition.setUserId("userB");
+        //condition.setStatus(LendStatus.LEND);
+        //condition.setStartDateTime();
+        condition.setStartDateTime(LocalDateTime.now().minusDays(3));
+        condition.setEndDateTime(LocalDateTime.now());
 
         Pageable pageable = PageRequest.of(0, 10);
 
         Page<LendResponseDto> result = lendRepository.search(condition,pageable);
 
-        Assertions.assertThat(result.getTotalElements()).isEqualTo(0);
+        Assertions.assertThat(result.getTotalElements()).isEqualTo(1);
 
         for(LendResponseDto dto : result){
             System.out.println("dto = " + dto.getAreaName() + " / " +dto.getLockerNo()
