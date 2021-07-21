@@ -28,8 +28,8 @@ public class LockerController {
      * @param
      * @return List<LockerResponseDto>
      */
-    @ApiOperation(value = "전체 보관함 목록 조회",
-                  notes = "전체 보관함 목록을 조회합니다.")
+    @ApiOperation(value = "검색 보관함 목록 조회",
+                  notes = "검색 조건에 맞는 보관함 목록을 조회합니다.")
     @GetMapping("/")
     public ResponseEntity list(LockerSearchCondition condition, Pageable pageable){
 
