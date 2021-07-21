@@ -32,7 +32,7 @@ public class UserController {
                   notes = "사용자 ID 내림차순으로 조회합니다.\n" +
                           "검색 조건이 없을 경우 전체 조회되며 페이징 처리를 하여 보여줍니다.")
     @GetMapping("/")
-    public ResponseEntity list(UserSearchCondition condition, Pageable pagable){
+    public ResponseEntity searchlist(UserSearchCondition condition, Pageable pagable){
 
         return new ResponseEntity(userService.search(condition, pagable), HttpStatus.OK);
     }
