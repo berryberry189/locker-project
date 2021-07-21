@@ -52,7 +52,7 @@ public class InitData {
             em.flush();
             em.clear();
             LockerArea area = new LockerArea();
-            area.setId(1L);
+            area.setId(1L); area.setName("구역1");
             for(int i=1; i<=20; i++){
                 LockerType type = (i%3 == 0) ? LockerType.LARGE : ( i%3 == 1 ? LockerType.SMALL : LockerType.MEDIUM);
                 int price = (i%3 == 0) ? 5000 : ( i%3 == 1 ? 2000 : 3000);
