@@ -49,8 +49,8 @@ public class InitData {
 
         @Transactional
         public void initLocker(){
-            em.flush();
-            em.clear();
+            //em.flush();
+            //em.clear();
             LockerArea area = new LockerArea();
             area.setId(1L); area.setName("구역1");
             for(int i=1; i<=20; i++){

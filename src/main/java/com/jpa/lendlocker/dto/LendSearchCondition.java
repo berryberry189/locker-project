@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Getter @Setter
 public class LendSearchCondition {
 
-    @ApiParam(value = "[검색 조건] 사용자 ID")
+    @ApiParam(value = "[검색 조건] 사용자 ID", example = "userId0")
     private String userId;
 
-    @ApiParam(value = "[검색 조건] 구역 명")
+    @ApiParam(value = "[검색 조건] 구역 명", example = "1")
     private String areaName;
 
-    @ApiParam(value = "[검색 조건] 대여 상태")
+    @ApiParam(value = "[검색 조건] 대여 상태", example = "LEND")
     private LendStatus status;
 
     @ApiParam(value = "[검색 조건] 기간 검색 시작 날짜")

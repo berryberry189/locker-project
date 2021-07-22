@@ -3,6 +3,7 @@ package com.jpa.lendlocker.controller;
 import com.jpa.lendlocker.dto.LendRequestDto;
 import com.jpa.lendlocker.dto.LendSearchCondition;
 import com.jpa.lendlocker.service.LendService;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
