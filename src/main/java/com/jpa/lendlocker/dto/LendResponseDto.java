@@ -1,5 +1,6 @@
 package com.jpa.lendlocker.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jpa.lendlocker.entity.Lend;
 import com.jpa.lendlocker.enums.LendStatus;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class LendResponseDto {
     private int hour;
     private int price;
     private LendStatus status;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDateTime lendDate;
 
     public LendResponseDto(Lend lend){
