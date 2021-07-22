@@ -42,13 +42,9 @@ public class UserService {
      * @param userKey
      * @return userLendResponseDto
      */
-    public UserLendResponseDto datail(Long userKey){
-        User user = userRepository.findById(userKey)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
+    public UserResponseDto datail(Long userKey){
 
-        UserLendResponseDto userLendResponseDto = new UserLendResponseDto(user);
-
-        return userLendResponseDto;
+        return userRepository.getDetailByUserKey(userKey);
     }
 
     /**

@@ -3,9 +3,11 @@ package com.jpa.lendlocker.repository;
 import com.jpa.lendlocker.dto.UserResponseDto;
 import com.jpa.lendlocker.dto.UserSearchCondition;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,6 +17,7 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+import static com.jpa.lendlocker.entity.QLend.lend;
 import static com.jpa.lendlocker.entity.QUser.user;
 
 public class UserRepositoryCustomImpl implements UserRepositoryCustom{
@@ -52,6 +55,32 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         long total = results.getTotal();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public UserResponseDto getDetailByUserKey(Long userKey) {
+
+        UserResponseDto result = queryFactory
+                .select(Projections.fields(
+                        UserResponseDto.class,
+                        user.userKey,
+                        user.userId,
+                        user.name,
+                        user.mobile,
+                        ExpressionUtils.as(JPAExpressions
+                                .select(lend.count())
+                                .from(lend)
+                                .groupBy(lend.user.userKey), "lockerNum")
+                ))
+                .from(user)
+                .where(userKeyEq(userKey))
+                .fetchOne();
+
+        return result;
+    }
+
+    private BooleanExpression userKeyEq(Long userKey) {
+        return userKey != null ? user.userKey.eq(userKey) : null;
     }
 
     private Predicate allCheck(String name, String userId, String mobile){

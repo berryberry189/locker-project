@@ -9,4 +9,7 @@ public interface UserRepositoryCustom {
 
     // 검색
     Page<UserResponseDto> search(UserSearchCondition condition, Pageable pagable);
+
+    // 사용자 상세 ( +사용자별 락커 갯수 )
+    UserResponseDto getDetailByUserKey(Long userKey);
 }
