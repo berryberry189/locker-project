@@ -14,7 +14,7 @@ public class LendSearchCondition {
     @ApiParam(value = "[검색 조건] 사용자 ID", example = "userId0")
     private String userId;
 
-    @ApiParam(value = "[검색 조건] 구역 명", example = "1")
+    @ApiParam(value = "[검색 조건] 구역 명", example = "구역1")
     private String areaName;
 
     @ApiParam(value = "[검색 조건] 대여 상태", example = "LEND")
