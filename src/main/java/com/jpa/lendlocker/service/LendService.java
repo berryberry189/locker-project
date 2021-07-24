@@ -74,4 +74,8 @@ public class LendService {
         return lendRepository.save(lend.returnLend(id, locker)).getId();
     }
 
+    public Boolean checkDuplication(LendRequestDto lendRequestDto) {
+        // 구역 id, 보관함 no, 대여 상태가 lend인 row가 0인 것을 확인
+        return lendRepository.checkDuplication(new LockerId(lendRequestDto.getAreaId(), lendRequestDto.getLockerNo()));
+    }
 }

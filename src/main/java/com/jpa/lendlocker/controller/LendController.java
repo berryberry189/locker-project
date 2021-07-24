@@ -38,6 +38,9 @@ public class LendController {
                   notes = "사물함을 대여합니다.")
     @PostMapping("/lend")
     public ResponseEntity lend(@RequestBody LendRequestDto lendRequestDto){
+        if( !lendService.checkDuplication(lendRequestDto) ){
+            throw new IllegalArgumentException("이미 대여된 보관함 입니다.");
+        };
         return new ResponseEntity(lendService.lend(lendRequestDto), HttpStatus.CREATED);
     }
 

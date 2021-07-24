@@ -2,6 +2,7 @@ package com.jpa.lendlocker.repository;
 
 import com.jpa.lendlocker.dto.LendResponseDto;
 import com.jpa.lendlocker.dto.LendSearchCondition;
+import com.jpa.lendlocker.entity.LockerId;
 import com.jpa.lendlocker.enums.LendStatus;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
@@ -73,6 +74,24 @@ public class LendRepositoryCustomImpl implements LendRepositoryCustom{
         long total = results.getTotal();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Boolean checkDuplication(LockerId lockerId) {
+        Long count = queryFactory
+                .select(lend.count())
+                .from(lend)
+                .where(
+                       lockerIdEq(lockerId),
+                       lend.status.eq(LendStatus.valueOf("LEND"))
+                )
+                .fetchCount();
+
+        return (count == 0 ? true : false);
+    }
+
+    private BooleanExpression lockerIdEq(LockerId lockerId) {
+        return lockerId != null ? lend.locker.lockerId.eq(lockerId) : null;
     }
 
     private BooleanExpression userIdEq(String userId) {
