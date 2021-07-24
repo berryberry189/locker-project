@@ -45,6 +45,7 @@ public class LendRepositoryCustomImpl implements LendRepositoryCustom{
                 .select(Projections.fields(
                         LendResponseDto.class,
                         user.userId,
+                        lockerArea.id.as("areaId"),
                         lockerArea.name.as("areaName"),
                         locker.lockerId.lockerNo,
                         lend.hour,
