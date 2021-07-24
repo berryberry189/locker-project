@@ -1,5 +1,7 @@
 package com.jpa.lendlocker.repository;
 
+import com.jpa.lendlocker.dto.LendResponseDto;
+import com.jpa.lendlocker.dto.UserLendResponseDto;
 import com.jpa.lendlocker.dto.UserResponseDto;
 import com.jpa.lendlocker.dto.UserSearchCondition;
 import com.querydsl.core.QueryResults;
@@ -18,6 +20,8 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.jpa.lendlocker.entity.QLend.lend;
+import static com.jpa.lendlocker.entity.QLocker.locker;
+import static com.jpa.lendlocker.entity.QLockerArea.lockerArea;
 import static com.jpa.lendlocker.entity.QUser.user;
 
 public class UserRepositoryCustomImpl implements UserRepositoryCustom{
@@ -59,7 +63,37 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
 
     @Override
     public UserResponseDto getDetailByUserKey(Long userKey) {
+        UserResponseDto result = findUserDetail(userKey);
+        List<UserLendResponseDto> lends = findUserLends(userKey);
+        result.setLends(lends);
 
+        return result;
+    }
+
+    // 해당 userKey의 대여 정보
+    private List<UserLendResponseDto> findUserLends(Long userKey) {
+        List<UserLendResponseDto> lends = queryFactory
+                .select(Projections.fields(
+                        UserLendResponseDto.class,
+                        lockerArea.id.as("areaId"),
+                        lockerArea.name.as("areaName"),
+                        locker.lockerId.lockerNo,
+                        lend.hour,
+                        lend.price,
+                        lend.status,
+                        lend.lendDate
+                ))
+                .from(lend)
+                .innerJoin(lend.user, user)
+                .innerJoin(lend.locker.area, lockerArea)
+                .innerJoin(lend.locker, locker)
+                .where(userKeyEq(userKey))
+                .fetchResults().getResults();
+        return lends;
+    }
+
+    // user 상세 정보
+    private UserResponseDto findUserDetail(Long userKey) {
         UserResponseDto result = queryFactory
                 .select(Projections.fields(
                         UserResponseDto.class,
@@ -75,7 +109,6 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
                 .from(user)
                 .where(userKeyEq(userKey))
                 .fetchOne();
-
         return result;
     }
 
