@@ -76,6 +76,11 @@ public class LendRepositoryCustomImpl implements LendRepositoryCustom{
         return new PageImpl<>(content, pageable, total);
     }
 
+    /**
+     * 보관함 대여 중복 조회
+     * @param lockerId
+     * @return
+     */
     @Override
     public Boolean checkDuplication(LockerId lockerId) {
         Long count = queryFactory
@@ -88,6 +93,29 @@ public class LendRepositoryCustomImpl implements LendRepositoryCustom{
                 .fetchCount();
 
         return (count == 0 ? true : false);
+    }
+
+    /**
+     * 대여 상태의 대여건 있는지 조회
+     * @param userKey
+     * @return
+     */
+    @Override
+    public Boolean checkLend(Long userKey) {
+        Long count = queryFactory
+                .select(lend.count())
+                .from(lend)
+                .where(
+                        userKeyEq(userKey),
+                        lend.status.eq(LendStatus.valueOf("LEND"))
+                )
+                .fetchCount();
+
+        return count > 0 ? true : false;
+    }
+
+    private BooleanExpression userKeyEq(Long userKey) {
+        return userKey != null ? lend.user.userKey.eq(userKey) : null;
     }
 
     private BooleanExpression lockerIdEq(LockerId lockerId) {

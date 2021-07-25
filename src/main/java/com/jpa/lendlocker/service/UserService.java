@@ -2,6 +2,7 @@ package com.jpa.lendlocker.service;
 
 import com.jpa.lendlocker.dto.*;
 import com.jpa.lendlocker.entity.User;
+import com.jpa.lendlocker.repository.LendRepository;
 import com.jpa.lendlocker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final LendRepository lendRepository;
 
 
     /**
@@ -86,8 +88,11 @@ public class UserService {
         Long id = userRepository.findById(userKey)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다.")).getUserKey();
 
+        // 대여상태의 대여건 있으면 삭제 안되게 하기
+        if(lendRepository.checkLend(userKey)){
+            throw new IllegalArgumentException("대여 상태인 보관함이 있으므로 삭제가 불가합니다.");
+        }
         userRepository.deleteById(id);
-
         return id;
     }
 }
