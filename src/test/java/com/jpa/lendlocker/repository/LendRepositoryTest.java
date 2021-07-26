@@ -100,5 +100,4 @@ public class LendRepositoryTest {
         // then
         Assertions.assertThat(check).isTrue();
     }
-
 }
