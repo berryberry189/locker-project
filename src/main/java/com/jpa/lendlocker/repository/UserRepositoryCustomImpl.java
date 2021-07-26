@@ -1,6 +1,5 @@
 package com.jpa.lendlocker.repository;
 
-import com.jpa.lendlocker.dto.LendResponseDto;
 import com.jpa.lendlocker.dto.UserLendResponseDto;
 import com.jpa.lendlocker.dto.UserResponseDto;
 import com.jpa.lendlocker.dto.UserSearchCondition;

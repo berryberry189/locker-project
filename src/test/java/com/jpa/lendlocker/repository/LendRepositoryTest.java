@@ -28,10 +28,7 @@ public class LendRepositoryTest {
     @Autowired LockerAreaRepository lockerAreaRepository;
     @Autowired LockerRepository lockerRepository;
 
-    @Test
-
-    public void searchTest(){
-        // given
+    private void setTestData() {
         User user = User.builder()
                 .userId("userA")
                 .name("김회원")
@@ -40,7 +37,8 @@ public class LendRepositoryTest {
         userRepository.save(user);
 
         LockerArea area = new LockerArea();
-        area.setId(1L); area.setName("구역1");
+        area.setId(1L);
+        area.setName("구역1");
         lockerAreaRepository.save(area);
 
         LockerId lockerId1 = new LockerId(1L, 1L);
@@ -62,6 +60,12 @@ public class LendRepositoryTest {
                 .lendDate(LocalDateTime.now().minusDays(1))
                 .build();
         lendRepository.save(lend);
+    }
+
+    @Test
+    public void searchTest(){
+        // given
+        setTestData();
 
         LendSearchCondition condition = new LendSearchCondition();
         //condition.setAreaName("구역1");
@@ -73,14 +77,28 @@ public class LendRepositoryTest {
 
         Pageable pageable = PageRequest.of(0, 10);
 
+        // when
         Page<LendResponseDto> result = lendRepository.search(condition,pageable);
 
+        // then
         Assertions.assertThat(result.getTotalElements()).isEqualTo(1);
 
         for(LendResponseDto dto : result){
             System.out.println("dto = " + dto.getAreaName() + " / " +dto.getLockerNo()
                     + " / " + dto.getUserId() + " / " + dto.getLendDate());
         }
-
     }
+
+    @Test
+    public void checkLendTest(){
+        // given
+        setTestData();
+
+        // when
+        Boolean check = lendRepository.checkLend(1L);
+
+        // then
+        Assertions.assertThat(check).isTrue();
+    }
+
 }
