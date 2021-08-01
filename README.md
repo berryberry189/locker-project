@@ -13,7 +13,7 @@
   
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:------------|:------------|:-------------|:-------------|
-| /user           | 모든 목록 조회 | GET    |      |List\<UserResponseDto\>|
+| /user           | 모든 목록 조회(+검색)| GET    |      |List\<UserResponseDto\>|
 | /user/{userKey} | 상세 | GET   | userKey  | userLendResponseDto |  
 | /user           | 등록 | POST  | userCreateRequestDto | userKey |
 | /user /{userKey}| 수정 | PUT   | userKey, userUpdateRequestDto | userKey |
@@ -25,7 +25,7 @@
   
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:----------- |:------------|:-------------|:-------------|
-| /locker       | 목록        | GET   |      | List\<LockerResponseDto\> |
+| /locker       | 목록 (+검색)       | GET   |      | List\<LockerResponseDto\> |
 | /locker/{areaId}| 구역 별 목록 조회 | GET | areaId | List\<LockerResponseDto\> |
 | /locker       | 등록        | GET   | lockerCreateRequestDto | lockerNo |
 | /locker/{areaId}/{lockerNo} | 수정 | PUT   | areaId, lockerNo, lockerRequestDto | lockerNo |
@@ -36,6 +36,6 @@
  **LendController**
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:------------|:------------|:-------------|:-------------|
-| /lend   | 전체 조회  | GET  |      | List\<LendResponseDto\> |
+| /lend   | 목록 (+검색)  | GET  |      | List\<LendResponseDto\> |
 | /lend   | 대여       | GET  | lendRequestDto | id |
 | /return/{id} | 반납  | PUT  | id   | id |
