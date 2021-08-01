@@ -22,9 +22,6 @@ public class LockerArea {
     @Column(name = "area_name")
     private String name;
 
-    @OneToMany(mappedBy = "area")
-    private List<Locker> lockers = new ArrayList<>();
-
     @Builder
     public LockerArea(String name){
         this.name = name;

@@ -45,13 +45,6 @@ public class Lend {
     @Column(name = "lend_date")
     private LocalDateTime lendDate;
 
-
-    // 연관관계 편의 메소드
-    public void setUser(User user){
-        this.user = user;
-        user.getLends().add(this);
-    }
-
     @Builder
     public Lend(User user, Locker locker, int hour, int price, LendStatus status, LocalDateTime lendDate){
         this.user = user;

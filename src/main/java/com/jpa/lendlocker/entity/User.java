@@ -29,9 +29,6 @@ public class User{
     @Column(name = "user_mobile")
     private String mobile;
 
-    @OneToMany(mappedBy = "user", cascade= CascadeType.ALL)
-    private List<Lend> lends = new ArrayList<>();
-
     @Builder
     public User(String userId, String name, String mobile){
         this.userId = userId;

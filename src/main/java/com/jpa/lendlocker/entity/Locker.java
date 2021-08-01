@@ -33,9 +33,6 @@ public class Locker {
 
     private String useYn;
 
-    @OneToMany(mappedBy = "locker", cascade= CascadeType.ALL)
-    private List<Lend> lends = new ArrayList<>();
-
     @Builder
     public Locker(LockerArea area, LockerId lockerId, LockerType type, int price, String useYn){
         this.lockerId = lockerId;
