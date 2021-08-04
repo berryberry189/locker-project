@@ -25,7 +25,7 @@
   
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:----------- |:------------|:-------------|:-------------|
-| /locker       | 등록        | GET   | lockerCreateRequestDto | lockerNo |
+| /locker       | 등록        | POST   | lockerCreateRequestDto | lockerNo |
 | /locker       | 목록 (+검색)       | GET   |      | List\<LockerResponseDto\> |
 | /locker/{areaId}| 구역 별 목록 조회 | GET | areaId | List\<LockerResponseDto\> |
 | /locker/{areaId}/{lockerNo} | 수정 | PUT   | areaId, lockerNo, lockerRequestDto | lockerNo |
@@ -36,6 +36,6 @@
  **LendController**
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:------------|:------------|:-------------|:-------------|
-| /lend   | 대여       | GET  | lendRequestDto | id |
+| /lend   | 대여       | POST  | lendRequestDto | id |
 | /lend   | 목록 (+검색)  | GET  |      | List\<LendResponseDto\> |
 | /return/{id} | 반납  | PUT  | id   | id |
