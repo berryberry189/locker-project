@@ -1,10 +1,8 @@
 package com.jpa.lendlocker.controller;
 
 import com.jpa.lendlocker.dto.UserCreateRequestDto;
-import com.jpa.lendlocker.dto.UserResponseDto;
 import com.jpa.lendlocker.dto.UserSearchCondition;
 import com.jpa.lendlocker.dto.UserUpdateRequestDto;
-import com.jpa.lendlocker.entity.User;
 import com.jpa.lendlocker.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
