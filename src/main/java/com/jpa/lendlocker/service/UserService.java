@@ -71,9 +71,8 @@ public class UserService {
     public Long update(Long userKey, UserUpdateRequestDto userUpdateRequestDto) {
         User user = userRepository.findById(userKey)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원 입니다."));
-
         if(userUpdateRequestDto != null){
-            userRepository.save(user.update(userUpdateRequestDto));
+            user.update(userUpdateRequestDto);
         }
         return user.getUserKey();
     }
