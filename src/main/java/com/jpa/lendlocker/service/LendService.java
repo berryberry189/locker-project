@@ -70,8 +70,8 @@ public class LendService {
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 대여 정보 입니다."));
         Locker locker = lockerRepository.findById(lend.getLocker().getLockerId())
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 입니다."));
-
-        return lendRepository.save(lend.returnLend(id, locker)).getId();
+        lend.returnLend(id, locker);
+        return lend.getId();
     }
 
     public Boolean checkDuplication(LendRequestDto lendRequestDto) {

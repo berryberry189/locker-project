@@ -19,7 +19,7 @@ public class LendController {
     /**
      * 대여 검색 목록
      * @param
-     * @return List<LendResponseDto>
+     * @return Page<LendResponseDto>
      */
     @ApiOperation(value = "대여 검색 목록 조회",
                   notes = "검색 대여 목록을 조회합니다.")

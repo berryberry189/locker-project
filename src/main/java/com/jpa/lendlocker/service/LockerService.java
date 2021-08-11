@@ -77,7 +77,7 @@ public class LockerService {
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 보관함 번호 입니다."));
 
         if(lockerUpdateRequestDto != null){
-            lockerRepository.save(locker.update(lockerUpdateRequestDto));
+            locker.update(lockerUpdateRequestDto);
         }
 
         return locker.getLockerId().getLockerNo();
