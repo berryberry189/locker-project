@@ -38,4 +38,4 @@
 |:--------------|:------------|:------------|:-------------|:-------------|
 | /lend   | 대여       | POST  | lendRequestDto | id |
 | /lend   | 목록 (+검색)  | GET  |      | List\<LendResponseDto\> |
-| /return/{id} | 반납  | PUT  | id   | id |
+| /return/{id} | 반납   | PUT  | id   | id |
