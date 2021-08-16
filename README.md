@@ -14,7 +14,7 @@
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:------------|:------------|:-------------|:-------------|
 | /user           | 등록 | POST  | userCreateRequestDto | userKey |
-| /user           | 모든 목록 조회(+검색)| GET    |      |List\<UserResponseDto\>|
+| /user           | 모든 목록 조회(+검색)| GET    |      |Page\<UserResponseDto\>|
 | /user/{userKey} | 상세 | GET   | userKey  | userLendResponseDto |  
 | /user /{userKey}| 수정 | PUT   | userKey, userUpdateRequestDto | userKey |
 | /user/{userKey} | 삭제 | DELETE| userKey | userKey |  
@@ -26,8 +26,8 @@
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:----------- |:------------|:-------------|:-------------|
 | /locker       | 등록        | POST   | lockerCreateRequestDto | lockerNo |
-| /locker       | 목록 (+검색)       | GET   |      | List\<LockerResponseDto\> |
-| /locker/{areaId}| 구역 별 목록 조회 | GET | areaId | List\<LockerResponseDto\> |
+| /locker       | 목록 (+검색)       | GET   |      | Page\<LockerResponseDto\> |
+| /locker/{areaId}| 구역 별 목록 조회 | GET | areaId | Page\<LockerResponseDto\> |
 | /locker/{areaId}/{lockerNo} | 수정 | PUT   | areaId, lockerNo, lockerRequestDto | lockerNo |
 | /locker/{areaId}/{lockerNo} | 삭제 | DELETE| areaId, lockerNo | lockerNo |  
   
@@ -37,5 +37,5 @@
 | URL           | 실행 작업   | Method Type | Request      | Response     |
 |:--------------|:------------|:------------|:-------------|:-------------|
 | /lend   | 대여       | POST  | lendRequestDto | id |
-| /lend   | 목록 (+검색)  | GET  |      | List\<LendResponseDto\> |
+| /lend   | 목록 (+검색)  | GET  |      | Page\<LendResponseDto\> |
 | /return/{id} | 반납   | PUT  | id   | id |
