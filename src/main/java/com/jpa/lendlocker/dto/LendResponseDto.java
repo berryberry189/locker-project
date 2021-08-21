@@ -24,15 +24,4 @@ public class LendResponseDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDateTime lendDate;
 
-    public LendResponseDto(Lend lend){
-        this.userId = lend.getUser().getUserId();
-        this.areaId = lend.getLocker().getLockerId().getAreaId();
-        this.areaName = lend.getLocker().getArea().getName();
-        this.lockerNo = lend.getLocker().getLockerId().getLockerNo();
-        this.hour = lend.getHour();
-        this.price = lend.getPrice();
-        this.status = lend.getStatus();
-        this.lendDate = lend.getLendDate();
-    }
-
 }

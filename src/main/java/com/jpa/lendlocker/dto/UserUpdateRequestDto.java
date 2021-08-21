@@ -1,6 +1,5 @@
 package com.jpa.lendlocker.dto;
 
-import com.jpa.lendlocker.entity.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +15,4 @@ public class UserUpdateRequestDto {
     @ApiModelProperty(value = "사용자 전화번호", example = "010-1111-1111")
     private String mobile;
 
-    public User toEntity(){
-        return User.builder()
-                .name(name)
-                .mobile(mobile)
-                .build();
-    }
 }

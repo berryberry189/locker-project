@@ -20,14 +20,4 @@ public class UserLendResponseDto {
     private LendStatus status;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDateTime lendDate;
-
-    public UserLendResponseDto(Long areaId, String areaName, Long lockerNo, int hour, int price, LendStatus status, LocalDateTime lendDate) {
-        this.areaId = areaId;
-        this.areaName = areaName;
-        this.lockerNo = lockerNo;
-        this.hour = hour;
-        this.price = price;
-        this.status = status;
-        this.lendDate = lendDate;
-    }
 }
