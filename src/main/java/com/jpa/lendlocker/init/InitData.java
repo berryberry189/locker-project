@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+// 테스트용 기초 데이터 삽입을 위한 class
 @Profile("local")
 @Component
 @RequiredArgsConstructor
